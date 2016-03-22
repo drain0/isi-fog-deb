@@ -51,7 +51,6 @@ def connection(host,user,password):
 
 
 if __name__ == "__main__":
-    """demo/test code for the PyVmomi"""
     host_1  =''
     host_2  =''
     user    =''
