@@ -11,3 +11,4 @@
 * apt-get install python-pip
 * pip install pyvmomi 
 * sudo gdebi isi-fog_0.1_all.deb
+* goto /var/www/fog/service/isi_vm_reboot.py input host_1,host_2,user,password
