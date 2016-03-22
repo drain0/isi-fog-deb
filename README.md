@@ -7,7 +7,7 @@
 * dpkg-buildpackage -rfakeroot -Tclean 
 
 ### Package installation ###
-# apt-get install gdebi-core
-# apt-get install python-pip
-# pip install pyvmomi 
-# sudo gdebi isi-fog_0.1_all.deb
+* apt-get install gdebi-core
+* apt-get install python-pip
+* pip install pyvmomi 
+* sudo gdebi isi-fog_0.1_all.deb
