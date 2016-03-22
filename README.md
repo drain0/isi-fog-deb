@@ -3,9 +3,8 @@
 * Do not set a password for mysql leave it blank.
 
 ### Package Creation ###
-package setup:
-dpkg-buildpackage -b 
-dpkg-buildpackage -rfakeroot -Tclean 
+* dpkg-buildpackage -b 
+* dpkg-buildpackage -rfakeroot -Tclean 
 
 ### Package installation ###
 package usage:
