@@ -11,6 +11,6 @@ X-Python-Version: >= 2.6
 Package: isi-fog
 Architecture: all
 Section: python
-Depends: python-pyvmomi 
+Depends:  
 Description: Custom changes to allow for freebsd and onefs installer compat
  ... 
