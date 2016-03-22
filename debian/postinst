@@ -1,0 +1,6 @@
+#!/bin/sh
+
+#DEBHELPER#
+set -e
+echo "POST-INSTALL STEPS"
+

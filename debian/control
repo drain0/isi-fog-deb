@@ -1,0 +1,16 @@
+Source: isi-fog
+Section: python
+Priority: optional
+Maintainer: Ian Itow, <ian.itow@isilon.com>
+Build-Depends: debhelper (>= 7),
+               python (>= 2.6.6-3~)
+Standards-Version: 3.9.2
+X-Python-Version: >= 2.6
+
+
+Package: isi-fog
+Architecture: all
+Section: python
+Depends: python-pyvmomi 
+Description: Custom changes to allow for freebsd and onefs installer compat
+ ... 
