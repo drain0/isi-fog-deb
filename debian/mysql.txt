@@ -1,0 +1,1 @@
+INSERT INTO taskTypes(ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES("Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog",'1',"both");

@@ -3,4 +3,4 @@
 #DEBHELPER#
 set -e
 echo "POST-INSTALL STEPS"
-
+mysql fog < mysql.txt
