@@ -9,6 +9,7 @@
 ### Package installation ###
 * apt-get install gdebi-core
 * apt-get install python-pip
-* pip install pyvmomi 
+* pip install pyvmomi==5.5.0-2014.1.1 
+* pip install pyvim
 * sudo gdebi isi-fog_0.1_all.deb
 * goto /var/www/fog/service/isi_vm_reboot.py input host_1,host_2,user,password

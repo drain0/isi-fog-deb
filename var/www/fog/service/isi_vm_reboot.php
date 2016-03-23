@@ -10,6 +10,10 @@ try
 	$command = escapeshellcmd('/usr/bin/python /var/www/fog/service/isi_vm_reboot.py -n ').$hostname;
         $output = shell_exec($command);
         print $output;
+    if (!output)
+    {
+        throw new Exception('error /var/www/fog/service/isi_vm_reboot.py');
+    }
 }
 catch (Exception $e)
 {
