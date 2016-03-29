@@ -606,6 +606,7 @@ class BootMenu extends FOGBase {
 	public function getTasking() {
 		$Task = $this->Host->get('task');
 		$Kernel = $this->Host->get('kernel');
+		$KernelArgs = $this->Host->get('kernelArgs');
 		if (!$Task->isValid()) {
 			if ($this->FOGCore->getSetting('FOG_NO_MENU')) $this->noMenu();
 			else $this->printDefault();
@@ -765,13 +766,17 @@ class BootMenu extends FOGBase {
 			} 
 			/* isi
 			 * custom option to allow for defining external kernel boots
+			 * dd bs=4M count=4 if=/dev/mem of=/tmp/mem.dump
+			 * strings <filename> | grep <boot set>
+			 * use:
+			 * http://stackoverflow.com/questions/17195924/python-equivalent-of-unix-strings-utility
 			 */
 			else if ($Task->get('typeID') == 25)
 			{
-				
 				print "#!ipxe\n";
-				print "$this->memdisk raw\n";
-				print  "initrd $Kernel\n";
+				print "$this->memdisk harddisk\n";
+				print "initrd $Kernel\n";
+				print "imgargs memdisk isi=$KernelArgs\n";
 				print "boot\n";
 			}
 			else $this->printTasking($kernelArgsArray);

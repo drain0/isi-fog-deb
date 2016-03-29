@@ -1,6 +1,14 @@
+
 #!/bin/sh
 
 #DEBHELPER#
 set -e
 echo "POST-INSTALL STEPS"
-mysql -e 'USE fog; INSERT INTO taskTypes(ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES("Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog","1","both");'
+
+RESULT=$(mysql -e 'USE fog; SELECT * FROM taskTypes WHERE ttName LIKE "Custom Kernel";')
+
+#echo "RESULT=$RESULT"
+if [[ -z $RESULT ]]; then
+        echo "UPDATING MYSQL DB"
+        mysql -e 'USE fog; INSERT INTO taskTypes(ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES("Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog","1","both");'
+fi
