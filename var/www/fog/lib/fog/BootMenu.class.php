@@ -770,6 +770,8 @@ class BootMenu extends FOGBase {
 			 * strings <filename> | grep <boot set>
 			 * use:
 			 * http://stackoverflow.com/questions/17195924/python-equivalent-of-unix-strings-utility
+			 * memdisk here:
+			 * http://www.syslinux.org/wiki/index.php?title=The_Syslinux_Project
 			 */
 			else if ($Task->get('typeID') == 25)
 			{
