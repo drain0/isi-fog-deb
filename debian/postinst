@@ -5,10 +5,10 @@
 set -e
 echo "POST-INSTALL STEPS"
 
-RESULT=$(mysql -e 'USE fog; SELECT * FROM taskTypes WHERE ttName LIKE "Custom Kernel";')
+RESULT=$(/usr/bin/mysql -se 'USE fog; SELECT ttName FROM taskTypes WHERE ttName LIKE "Custom Kernel";')
 
-#echo "RESULT=$RESULT"
-if [[ -z $RESULT ]]; then
-        echo "UPDATING MYSQL DB"
-        mysql -e 'USE fog; INSERT INTO taskTypes(ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES("Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog","1","both");'
+echo "RESULT=$RESULT"
+if [ -z "${RESULT}" ]; then
+        /usr/bin/mysql -e 'USE fog; INSERT INTO taskTypes(ttID,ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES(25,"Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog","1","both");'
 fi
+exit 0;

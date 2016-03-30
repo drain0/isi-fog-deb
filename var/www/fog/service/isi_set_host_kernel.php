@@ -8,12 +8,12 @@ try
 
         if (!$hostname)
         {
-        	throw new Exception('error please define hostname example: {url}/fog/service/isi_queue_host.php?hostname={name}&kernel_path={url path}');
+        	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_kernel.php?hostname={name}&kernel_path={url path}');
         }
 
         if (!$kernel_path)
         {
-        	throw new Exception('error please define kernel_path example: {url}/fog/service/isi_queue_host.php?hostname={name}&kernel_path={url path}');
+        	throw new Exception('error please define kernel_path example: {url}/fog/service/isi_set_host_kernel.php?hostname={name}&kernel_path={url path}');
         }
 
         // Get the Host
