@@ -34,8 +34,8 @@ def make_package(options):
     print "server: %s" % server
     print "   src: %s" % src
     print "  dest: %s" % dest
-    rsync(server,src,dest,rsa_private="/ifs/home/iitow/.ssh/id_rsa",option='push')
-    ssh(server,"cd /root; gdebi %s -n" % (options.build),rsa_private="/ifs/home/iitow/.ssh/id_rsa")
+    rsync(server,src,dest,rsa_private="~/.ssh/id_rsa",option='push')
+    ssh(server,"cd /root; gdebi %s -n" % (options.build),rsa_private="~/.ssh/id_rsa")
     
     
     
