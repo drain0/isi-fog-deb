@@ -607,6 +607,9 @@ class BootMenu extends FOGBase {
 		$Task = $this->Host->get('task');
 		$Kernel = $this->Host->get('kernel');
 		$KernelArgs = $this->Host->get('kernelArgs');
+		if (empty($KernelArgs)) {
+			$KernelArgs = 'kernelArgs=None';
+		}
 		if (!$Task->isValid()) {
 			if ($this->FOGCore->getSetting('FOG_NO_MENU')) $this->noMenu();
 			else $this->printDefault();
@@ -765,6 +768,8 @@ class BootMenu extends FOGBase {
 				$this->parseMe($Send);
 			} 
 			/* isi
+			 * This creates a variable which the mfsbsd install can grab later
+			 * 
 			 * custom option to allow for defining external kernel boots
 			 * dd bs=4M count=4 if=/dev/mem of=/tmp/mem.dump
 			 * strings <filename> | grep <boot set>
@@ -778,7 +783,7 @@ class BootMenu extends FOGBase {
 				print "#!ipxe\n";
 				print "$this->memdisk harddisk\n";
 				print "initrd $Kernel\n";
-				print "imgargs memdisk isi=$KernelArgs\n";
+				print "imgargs memdisk WALDO $KernelArgs,mac=$mac,webroot=$this->web,type=25\n";
 				print "boot\n";
 			}
 			else $this->printTasking($kernelArgsArray);
