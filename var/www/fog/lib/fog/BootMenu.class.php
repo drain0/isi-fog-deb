@@ -607,8 +607,20 @@ class BootMenu extends FOGBase {
 		$Task = $this->Host->get('task');
 		$Kernel = $this->Host->get('kernel');
 		$KernelArgs = $this->Host->get('kernelArgs');
+		$description = $this->Host->get('description');
+		$parts = explode("\n", $description);
+		$parts = array_map("trim", $parts);
+		foreach($parts as $currentPart)
+		{
+			list($key, $value) = explode("=", $currentPart);
+			$descriptionArgs[$key] = $value;
+		}
+		$descriptionArgsStr = http_build_query($descriptionArgs,'',', ');
 		if (empty($KernelArgs)) {
 			$KernelArgs = 'kernelArgs=None';
+		}
+		if (!empty($descriptionArgsStr)) {
+			$descriptionArgsStr = ",".$descriptionArgsStr;
 		}
 		if (!$Task->isValid()) {
 			if ($this->FOGCore->getSetting('FOG_NO_MENU')) $this->noMenu();
@@ -783,7 +795,7 @@ class BootMenu extends FOGBase {
 				print "#!ipxe\n";
 				print "$this->memdisk harddisk\n";
 				print "initrd $Kernel\n";
-				print "imgargs memdisk WALDO $KernelArgs,mac=$mac,webroot=$this->web,type=25\n";
+				print "imgargs memdisk WALDO $KernelArgs,mac=$mac,webroot=$this->web,type=25$descriptionArgsStr\n";
 				print "boot\n";
 			}
 			else $this->printTasking($kernelArgsArray);

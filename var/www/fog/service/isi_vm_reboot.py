@@ -2,6 +2,7 @@ from pyVmomi import vim
 from pyVim import connect
 import atexit
 import optparse
+import json
 
 def menu():
     p = optparse.OptionParser(description='reboots virtual machine esxi',
@@ -32,6 +33,11 @@ def reboot(service_instance,name):
         return True
     return False
 
+def read_config():
+    with open('/var/www/fog/commons/isi_vm_reboot.json') as data_file:    
+        data = json.load(data_file)
+        return data
+
 def connection(host,user,password):
     try:
         service_instance = connect.SmartConnect(host=host,user=user,pwd=password,port=443)
@@ -40,10 +46,11 @@ def connection(host,user,password):
         print str(e)
     atexit.register(connect.Disconnect, service_instance)
 if __name__ == "__main__":
-    host_1  =''
-    host_2  =''
-    user    =''
-    password=''
+    config = read_config()
+    host_1  = config.get('host_1')
+    host_2  = config.get('host_2')
+    user    = config.get('user')
+    password= config.get('password')
     options = menu()
     name    = options.get('name')
     service_instance = connection(host_1,user,password)

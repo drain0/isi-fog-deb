@@ -11,4 +11,8 @@ echo "RESULT=$RESULT"
 if [ -z "${RESULT}" ]; then
         /usr/bin/mysql -e 'USE fog; INSERT INTO taskTypes(ttID,ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES(25,"Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog","1","both");'
 fi
+chmod 700 /var/www/fog/service/isi_vm_reboot.py
+chmod 700 /var/www/fog/service/terminal.py
+chown www-data:www-data /var/www/fog/service/isi_vm_reboot.py
+chown www-data:www-data /var/www/fog/service/terminal.py
 exit 0;

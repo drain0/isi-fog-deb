@@ -7,5 +7,9 @@
 
 	"isi_queue_host":{"url":"{url}/fog/service/isi_queue_host.php?hostname={name}&taskTypeID={id}"},
 
-	"isi_get_host_description":{"url":"{url}/fog/service/isi_get_host_description.php?mac={mac}"}
+	"isi_get_host_description":{"url":"{url}/fog/service/isi_get_host_description.php?mac={mac}"},
+	
+	"isi_telnet_cmd.php":{"url":"{url}/fog/service/isi_telnet_cmd.php?host={host}&port={port}&cmdline={cmdline}"},
+
+        "isi_ipmi_reset.php":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
 }
