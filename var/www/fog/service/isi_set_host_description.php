@@ -4,11 +4,11 @@ try
 {
         $HostManager = new HostManager();
         $hostname    = $_REQUEST['hostname'];
-        $kernel_args = $_REQUEST['kernel_args'];
+        $description = $_REQUEST['description'];
 
-        if (!$hostname || !$kernel_path)
+        if (!$hostname || !$description)
         {
-        	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_kernel_args.php?hostname={name}&kernel_args={kernel_args}');
+        	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_description.php?hostname={name}&description={url path}');
         }
 
         // Get the Host
@@ -19,7 +19,7 @@ try
         	throw new Exception('error host not found');
         }
 
-       $Host->set('kernelArgs', $kernel_args);
+       $Host->set('description', $description);
        if ($Host->save()) $Datatosend = "#!ok\n";
        else throw new Exception('#!er: Error adding kernel path');
         print 'True';

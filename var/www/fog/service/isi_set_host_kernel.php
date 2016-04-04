@@ -6,16 +6,10 @@ try
         $hostname    = $_REQUEST['hostname'];
         $kernel_path = $_REQUEST['kernel_path'];
 
-        if (!$hostname)
+        if (!$hostname || !$kernel_path)
         {
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_kernel.php?hostname={name}&kernel_path={url path}');
         }
-
-        if (!$kernel_path)
-        {
-        	throw new Exception('error please define kernel_path example: {url}/fog/service/isi_set_host_kernel.php?hostname={name}&kernel_path={url path}');
-        }
-
         // Get the Host
         $Host = $HostManager->getHostByName($hostname);
 

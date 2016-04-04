@@ -1,0 +1,6 @@
+{
+"host_1":"vcenter02.prod.sea1.west.isilon.com",
+"host_2":"eng-mgt-vcenter.west.isilon.com",
+"user":"SVC-SEA.EngJenkinsSt",
+"password":""
+}
