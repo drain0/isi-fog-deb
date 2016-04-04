@@ -30,8 +30,6 @@ try
         	$MACs = array_unique(array_diff((array)$AllMacs,(array)$KnownMacs));
         	$Host->addPendMAC($MACs);
         	$Host->save();
-        	
-        	
         }else{
         	throw new Exception('Host Already Exists');
         }
