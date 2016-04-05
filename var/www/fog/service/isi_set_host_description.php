@@ -13,7 +13,7 @@ try
 
         if (!$hostname || !$description)
         {
-        	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_description.php?hostname={name}&description={url path}');
+        	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_description.php?hostname={name}&description={description}');
         }
 
         // Get the Host

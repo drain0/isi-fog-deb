@@ -1,15 +1,29 @@
 {
-	"isi_vm_reboot":{"url":"{url}/fog/service/isi_vm_reboot.php?hostname={name}"},
+	
 
 	"isi_set_host_kernel":{"url":"{url}/fog/service/isi_set_host_kernel.php?hostname={name}&kernel_path={url path}"},
 
 	"isi_set_host_kernel_args":{"url":"{url}/fog/service/isi_set_host_kernel_args.php?hostname={name}&kernel_args={kernel_args}"},
+	
+	"isi_set_host_description":{"url":"{url}/fog/service/isi_set_host_description.php?hostname={name}&description={description}"},
+	
+	"isi_get_host_state":{"url":"{url}/fog/service/isi_get_host_kernel_state.php?hostname={hostname}"},
+	
+	"isi_get_host_mac":{"url":"{url}/fog/service/isi_get_host_mac.php?hostname={hostname}"},
 
-	"isi_queue_host":{"url":"{url}/fog/service/isi_queue_host.php?hostname={name}&taskTypeID={id}"},
+	"isi_get_host_kernel":{"url":"{url}/fog/service/isi_get_host_kernel.php?mac={mac}"},
+
+	"isi_get_host_kernel_args":{"url":"{url}/fog/service/isi_get_host_kernel_args.php?mac={mac}"},
 
 	"isi_get_host_description":{"url":"{url}/fog/service/isi_get_host_description.php?mac={mac}"},
 	
 	"isi_telnet_cmd.php":{"url":"{url}/fog/service/isi_telnet_cmd.php?host={host}&port={port}&cmdline={cmdline}"},
+	
+	"isi_queue_host":{"url":"{url}/fog/service/isi_queue_host.php?hostname={name}&taskTypeID={id}"},
+	
+	"isi_vm_reboot":{"url":"{url}/fog/service/isi_vm_reboot.php?hostname={name}"},
+	
+	"isi_register_host":{"url":"{url}/fog/service/isi_register_host.php?hostname={hostname}&mac={mac}"},
 
-        "isi_ipmi_reset.php":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
+    "isi_ipmi_reset.php":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
 }

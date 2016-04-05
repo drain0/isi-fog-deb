@@ -11,7 +11,7 @@ try
         $MACs = $_REQUEST['mac'];
         if (!$MACs)
         {
-            throw new Exception('Error unable to get description example: {url}/fog/service/isi_get_host_kernel.php?mac={mac}');
+            throw new Exception('Error unable to get description example: {url}/fog/service/isi_get_host_kernel_args.php?mac={mac}');
         }
         // Get the Host
         $Host = $HostManager->getHostByMacAddresses($MACs);
