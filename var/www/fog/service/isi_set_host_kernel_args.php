@@ -11,7 +11,7 @@ try
         $hostname    = $_REQUEST['hostname'];
         $kernel_args = $_REQUEST['kernel_args'];
 
-        if (!$hostname || !$kernel_path)
+        if (!$hostname || !$kernel_args)
         {
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_kernel_args.php?hostname={name}&kernel_args={kernel_args}');
         }

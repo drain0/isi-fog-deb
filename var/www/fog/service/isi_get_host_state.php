@@ -26,7 +26,7 @@ try
         }else{
         	$status = 'inactive';
         }
-        $output['stdout'] = "isActive=".$isActive.",status=".$status;
+        $output['stdout'] = "isActive=".$isActive;
         $output['code'] = 0;
         
 }

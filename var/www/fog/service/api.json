@@ -25,5 +25,5 @@
 	
 	"isi_register_host":{"url":"{url}/fog/service/isi_register_host.php?hostname={hostname}&mac={mac}"},
 
-    "isi_ipmi_reset.php":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
+    	"isi_ipmi_reset.php":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
 }

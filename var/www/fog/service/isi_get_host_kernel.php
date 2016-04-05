@@ -5,7 +5,6 @@ $output['code'] =  1;
 $output['stdout'] = 'None';
 $output['stderr'] = 'None';
 $output['stdin'] = 'None';
-
 try
 {
         $HostManager = new HostManager();

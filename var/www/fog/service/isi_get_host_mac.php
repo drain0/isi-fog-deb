@@ -19,7 +19,8 @@ try
         {
         	throw new Exception('Host not found');
         }
-        $output['stdout'] =  $Host->getMACAddress();
+        $mac = $Host->getMACAddress();
+        $output['stdout'] = "$mac";
         $output['code'] =  0;
 }
 catch (Exception $e)

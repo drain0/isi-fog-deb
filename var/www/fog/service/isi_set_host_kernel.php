@@ -32,8 +32,6 @@ try
        else{
        	throw new Exception("Error adding kernel path");
        }
-        print 'True';
-
 }
 catch (Exception $e)
 {
