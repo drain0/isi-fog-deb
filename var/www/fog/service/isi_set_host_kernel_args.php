@@ -1,5 +1,10 @@
 <?php
 require_once('../commons/base.inc.php');
+$output = array();
+$output['code'] =  0;
+$output['stdout'] = 'None';
+$output['stderr'] = 'None';
+$output['stdin'] = 'None';
 try
 {
         $HostManager = new HostManager();
@@ -8,24 +13,27 @@ try
 
         if (!$hostname || !$kernel_path)
         {
+        	//$output['stderr'] = 'error please define hostname example: {url}/fog/service/isi_set_host_kernel_args.php?hostname={name}&kernel_args={kernel_args}';
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_kernel_args.php?hostname={name}&kernel_args={kernel_args}');
         }
 
         // Get the Host
         $Host = $HostManager->getHostByName($hostname);
 
-        if (!$Host)
+        if(!$Host)
         {
-        	throw new Exception('error host not found');
+        	throw new Exception('Host not found');
         }
 
        $Host->set('kernelArgs', $kernel_args);
-       if ($Host->save()) $Datatosend = "#!ok\n";
-       else throw new Exception('#!er: Error adding kernel path');
-        print 'True';
-
+       if ($Host->save()){
+       	$Datatosend = "#!ok\n";
+       }      
+       print 'True';
 }
 catch (Exception $e)
 {
-        print $e->getMessage();
+	$output['code'] =  1;
+	$output['stderr'] = $e->getMessage();	
 }
+print json_encode($output,JSON_UNESCAPED_SLASHES);

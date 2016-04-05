@@ -1,11 +1,20 @@
 <?php
 require_once('../commons/base.inc.php');
+$output = array();
+$output['code'] =  0;
+$output['stdout'] = 'None';
+$output['stderr'] = 'None';
+$output['stdin'] = 'None';
 try
 {
         $HostManager = new HostManager();
         $hostname    = $_REQUEST['hostname'];
         if (!$hostname)
-                throw new Exception('error please define hostname example: {url}/fog/service/isi_get_host_mac.php?hostname={hostname}');
+        {
+        	//$output['stderr'] = 'error please define hostname example: {url}/fog/service/isi_get_host_mac.php?hostname={hostname}';
+        	//$output['code'] = 1;
+            throw new Exception('error please define hostname example: {url}/fog/service/isi_get_host_mac.php?hostname={hostname}');
+        }
         // Get the host if it exists
         $Host = $HostManager->getHostByName($hostname);
         if(!$Host)
@@ -17,6 +26,7 @@ try
 }
 catch (Exception $e)
 {
-		print "error:";
-        print $e->getMessage();
+	$output['code'] =  1;
+	$output['stderr'] = $e->getMessage();	
 }
+print json_encode($output,JSON_UNESCAPED_SLASHES);
