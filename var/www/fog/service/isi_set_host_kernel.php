@@ -13,7 +13,6 @@ try
 
         if (!$hostname || !$kernel_path)
         {
-        	//$output['stderr'] ='error please define hostname example: {url}/fog/service/isi_set_host_kernel.php?hostname={name}&kernel_path={url path}';
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_kernel.php?hostname={name}&kernel_path={url path}');
         }
         // Get the Host
@@ -31,9 +30,6 @@ try
        	$output['code'] =  0;
        }
        else{
-       	//$output['stderr'] = "Error adding kernel path";
-       	//$output['code'] = 1;
-       	//json_encode($output,JSON_UNESCAPED_SLASHES);
        	throw new Exception("Error adding kernel path");
        }
         print 'True';

@@ -11,8 +11,6 @@ try
         $hostname    = $_REQUEST['hostname'];
         if (!$hostname)
         {
-        	//$output['stderr'] = 'error please define hostname example: {url}/fog/service/isi_get_host_mac.php?hostname={hostname}';
-        	//$output['code'] = 1;
             throw new Exception('error please define hostname example: {url}/fog/service/isi_get_host_mac.php?hostname={hostname}');
         }
         // Get the host if it exists

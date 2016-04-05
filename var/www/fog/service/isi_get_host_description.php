@@ -11,15 +11,12 @@ try
         $MACs = $_REQUEST['mac'];
         if (!$MACs)
         {
-        	//$output['stderr'] ='Error unable to get description example: {url}/fog/service/isi_get_host_description.php?mac={mac}';
         	throw new Exception('Error unable to get description example: {url}/fog/service/isi_get_host_description.php?mac={mac}');
         }
         // Get the Host
         $Host = $HostManager->getHostByMacAddresses($MACs);
         if(!$Host)
         {
-        	//$output['stderr'] = "Host not found";
-        	//$output['code'] = 1;
         	throw new Exception("Host not found");
         }
         $output['stdout'] = ''.$Host->get('description');

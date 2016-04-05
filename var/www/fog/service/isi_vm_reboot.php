@@ -10,7 +10,6 @@ try
 	$hostname    = $_REQUEST['hostname'];
 	if (!$hostname)
 	{
-		//$output['stderr'] ='error please define hostname example: {url}/fog/service/isi_vm_reboot.php?hostname={name}';
 		throw new Exception('error please define hostname example: {url}/fog/service/isi_vm_reboot.php?hostname={name}');
 	}
 	$command = escapeshellcmd('/usr/bin/python /var/www/fog/service/isi_vm_reboot.py -n ').$hostname;
@@ -19,8 +18,6 @@ try
         $output['code'] =  0;
     if (!output)
     {
-    	//$output['stderr'] ='error /var/www/fog/service/isi_vm_reboot.py';
-    	//$output['code'] = 1;
     	throw new Exception('error /var/www/fog/service/isi_vm_reboot.py');
     }
 }

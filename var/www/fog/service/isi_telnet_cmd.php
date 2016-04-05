@@ -12,7 +12,6 @@ try
 	$cmdline     = $_REQUEST['cmdline'];
 	if (!$host || !$port)
 	{
-		//$output['stderr'] ='error please define hostname example: {url}/fog/service/isi_telnet_cmd.php?host={host}&port={port}&cmdline={cmd}';
 		throw new Exception('error please define hostname example: {url}/fog/service/isi_telnet_cmd.php?host={host}&port={port}&cmdline={cmd}');
 	}
 	if (!$cmdline)
@@ -29,8 +28,6 @@ try
         
     if (!output)
     {
-    	//$output['stderr'] ='error /var/www/fog/service/isi_vm_reboot.py';
-    	//$output['code'] = 1;
     	throw new Exception('error /var/www/fog/service/isi_vm_reboot.py');
     }
 }

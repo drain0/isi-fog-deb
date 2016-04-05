@@ -12,7 +12,6 @@ try
         $taskTypeID  = $_REQUEST['taskTypeID'];
         $taskName    = 'Custom Kernel';
         if (!$hostname || !$taskTypeID)
-        	//$output['stderr'] = 'error please define hostname example: {url}/fog/service/isi_queue_host.php?hostname={name}&taskTypeID={id}';
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_queue_host.php?hostname={name}&taskTypeID={id}');
         // Get the Host
         $Host = $HostManager->getHostByName($hostname);

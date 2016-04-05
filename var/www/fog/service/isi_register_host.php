@@ -12,8 +12,6 @@ try
         $mac         = $_REQUEST['mac'];
         if (!$hostname || !$mac)
         {
-        	//$output['stderr'] = 'error please define hostname example: {url}/fog/service/isi_register_host.php?hostname={hostname}&mac={mac}';
-        	//$output['code'] = 1;
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_register_host.php?hostname={hostname}&mac={mac}');
         }
         // Get the host if it exists
@@ -43,8 +41,6 @@ try
         	$output['code'] =  0;
         	
         }else{
-        	//$output['stderr'] ='Host Already Exists';
-        	//$output['code'] = 1;
         	throw new Exception('Host Already Exists');
         }
 }

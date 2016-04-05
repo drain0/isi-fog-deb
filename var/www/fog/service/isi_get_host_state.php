@@ -11,8 +11,6 @@ try
         $hostname    = $_REQUEST['hostname'];
         if (!$hostname)
         {
-        	//$output['stderr'] = 'error please define hostname example: {url}/fog/service/isi_get_host_state.php?hostname={name}';
-        	//$output['code'] = 1;
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_get_host_state.php?hostname={name}');
         }
         // Get the Host
@@ -28,7 +26,7 @@ try
         }else{
         	$status = 'inactive';
         }
-        $output['stdout'] = "isActive=".$isActive.",status=".$status
+        $output['stdout'] = "isActive=".$isActive.",status=".$status;
         $output['code'] = 0;
         
 }

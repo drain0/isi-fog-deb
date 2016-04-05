@@ -13,7 +13,6 @@ try
 
         if (!$hostname || !$kernel_path)
         {
-        	//$output['stderr'] = 'error please define hostname example: {url}/fog/service/isi_set_host_kernel_args.php?hostname={name}&kernel_args={kernel_args}';
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_set_host_kernel_args.php?hostname={name}&kernel_args={kernel_args}');
         }
 
