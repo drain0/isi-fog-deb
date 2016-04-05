@@ -1,7 +1,7 @@
 <?php
 require_once('../commons/base.inc.php');
 $output = array();
-$output['code'] =  0;
+$output['code'] =  1;
 $output['stdout'] = 'None';
 $output['stderr'] = 'None';
 $output['stdin'] = 'None';
@@ -22,14 +22,16 @@ try
 		$cmd = "/usr/bin/python /var/www/fog/service/isi_telnet_cmd.py -H ".$host." -p ".$port." -c '".$cmdline."'";
 	}
 	$command = escapeshellcmd($cmd);
-        $output = shell_exec($command);
-        print "<pre>".$output."</pre>";
+    $out = shell_exec($command);
+    #print "<pre>".$output."</pre>";
+    $output['stdout'] = $out;
+    $output['code'] =  0;
+        
     if (!output)
     {
     	//$output['stderr'] ='error /var/www/fog/service/isi_vm_reboot.py';
     	//$output['code'] = 1;
     	throw new Exception('error /var/www/fog/service/isi_vm_reboot.py');
-    	
     }
 }
 catch (Exception $e)

@@ -1,7 +1,7 @@
 <?php
 require_once('../commons/base.inc.php');
 $output = array();
-$output['code'] =  0;
+$output['code'] =  1;
 $output['stdout'] = 'None';
 $output['stderr'] = 'None';
 $output['stdin'] = 'None';
@@ -25,9 +25,12 @@ try
         if($isActive >= 1)
         {
 	        $status   = implode(',',$Host->getActiveTask());
-	        print "is active:".$isActive;
-	        print "   status:".$status;
+        }else{
+        	$status = 'inactive';
         }
+        $output['stdout'] = "isActive=".$isActive.",status=".$status
+        $output['code'] = 0;
+        
 }
 catch (Exception $e)
 {

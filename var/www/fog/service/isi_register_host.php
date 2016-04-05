@@ -1,7 +1,7 @@
 <?php
 require_once('../commons/base.inc.php');
 $output = array();
-$output['code'] =  0;
+$output['code'] =  1;
 $output['stdout'] = 'None';
 $output['stderr'] = 'None';
 $output['stdin'] = 'None';
@@ -39,6 +39,9 @@ try
         	$MACs = array_unique(array_diff((array)$AllMacs,(array)$KnownMacs));
         	$Host->addPendMAC($MACs);
         	$Host->save();
+        	$output['stdout'] = 'True';
+        	$output['code'] =  0;
+        	
         }else{
         	//$output['stderr'] ='Host Already Exists';
         	//$output['code'] = 1;

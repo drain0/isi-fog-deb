@@ -1,7 +1,7 @@
 <?php
 require_once('../commons/base.inc.php');
 $output = array();
-$output['code'] =  0;
+$output['code'] =  1;
 $output['stdout'] = 'None';
 $output['stderr'] = 'None';
 $output['stdin'] = 'None';
@@ -15,7 +15,8 @@ try
 	}
 	$command = escapeshellcmd('/usr/bin/python /var/www/fog/service/isi_vm_reboot.py -n ').$hostname;
         $output = shell_exec($command);
-        print $output;
+        $output['stdout'] = 'True';
+        $output['code'] =  0;
     if (!output)
     {
     	//$output['stderr'] ='error /var/www/fog/service/isi_vm_reboot.py';

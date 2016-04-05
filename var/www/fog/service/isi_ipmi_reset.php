@@ -1,7 +1,7 @@
 <?php
 require_once('../commons/base.inc.php');
 $output = array();
-$output['code'] =  0;
+$output['code'] =  1;
 $output['stdout'] = 'None';
 $output['stderr'] = 'None';
 $output['stdin'] = 'None';
@@ -17,8 +17,9 @@ try
 	}
 	$cmd = "/usr/bin/python /var/www/fog/service/isi_ipmi_reset.py -i ".$ip." -u ".$user." -p ".$password;
 	$command = escapeshellcmd($cmd);
-        $output = shell_exec($command);
-        print $output;
+        $out = shell_exec($command);
+        $output['stdout'] = $out;
+        $output['code'] =  0;
     if (!output)
     {
     	//$output['code'] = 1;

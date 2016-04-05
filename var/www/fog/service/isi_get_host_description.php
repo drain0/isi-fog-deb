@@ -1,7 +1,7 @@
 <?php
 require_once('../commons/base.inc.php');
 $output = array();
-$output['code'] =  0;
+$output['code'] =  1;
 $output['stdout'] = 'None';
 $output['stderr'] = 'None';
 $output['stdin'] = 'None';
@@ -23,6 +23,7 @@ try
         	throw new Exception("Host not found");
         }
         $output['stdout'] = ''.$Host->get('description');
+        $output['code'] =  0;
 }
 catch (Exception $e)
 {
