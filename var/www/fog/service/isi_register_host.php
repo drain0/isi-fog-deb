@@ -40,7 +40,8 @@ try
         	$output['stdout'] = 'True';
         	$output['code'] =  0;
         	
-        }else{
+        }
+        else{
         	throw new Exception('Host Already Exists');
         }
 }

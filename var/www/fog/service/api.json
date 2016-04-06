@@ -7,6 +7,10 @@
 	
 	"isi_set_host_description":{"url":"{url}/fog/service/isi_set_host_description.php?hostname={name}&description={description}"},
 	
+	"isi_set_host_state.php":{"url":"{url}/fog/service/isi_set_host_state.php?mac={mac}&state={#1-5}"},
+	
+	"isi_get_hosts":{"url":"{url}/fog/service/isi_get_hosts.php"},
+	
 	"isi_get_host_state":{"url":"{url}/fog/service/isi_get_host_kernel_state.php?hostname={hostname}"},
 	
 	"isi_get_host_mac":{"url":"{url}/fog/service/isi_get_host_mac.php?hostname={hostname}"},
@@ -24,6 +28,8 @@
 	"isi_vm_reboot":{"url":"{url}/fog/service/isi_vm_reboot.php?hostname={name}"},
 	
 	"isi_register_host":{"url":"{url}/fog/service/isi_register_host.php?hostname={hostname}&mac={mac}"},
+	
+	"isi_destroy_host":{"url":"{url}/fog/service/isi_destroy_host.php?hostname={hostname}"},
 
     	"isi_ipmi_reset.php":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
 }
