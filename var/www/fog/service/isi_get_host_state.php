@@ -19,14 +19,13 @@ try
         {
         	throw new Exception('Host not found');
         }
-        $isActive = $Host->getActiveTaskCount();
-        if($isActive >= 1)
-        {
-	        $status   = implode(',',$Host->getActiveTask());
-        }else{
-        	$status = 'inactive';
-        }
-        $output['stdout'] = "isActive=".$isActive;
+        $Task = $Host->get('task');
+        if (!$Task->isValid()) throw new Exception(sprintf('%s: %s (%s)',_('No Active Task found for Host'), $Host->get('name'),$Host->get('mac')));
+        
+
+        $state = $Task->get('stateID',$STATE);
+        
+        $output['stdout'] = "state=".$state;
         $output['code'] = 0;
         
 }

@@ -9,7 +9,7 @@ try
 {
 	$host    = $_REQUEST['host'];
 	$port    = $_REQUEST['port'];
-	$cmdline     = $_REQUEST['cmdline'];
+	$cmdline = $_REQUEST['cmdline'];
 	if (!$host || !$port)
 	{
 		throw new Exception('error please define hostname example: {url}/fog/service/isi_telnet_cmd.php?host={host}&port={port}&cmdline={cmd}');
