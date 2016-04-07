@@ -18,7 +18,13 @@ try
 				$host = $HostManager->getHostByMacAddresses($mac);
 				if(!empty($host))
 				{
-					$hosts[$host->get('name')] = $host->getActiveTaskCount();
+					$Task = $host->get('task');
+					$state = $Task->get('stateID');
+					if(empty($state))
+					{
+						$state="0";
+					}
+					$hosts[$host->get('name')] = (int)$state;
 				}
 			}
 		}

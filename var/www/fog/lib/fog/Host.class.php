@@ -461,14 +461,15 @@ class Host extends FOGController {
 		return $this->get('id') && HostManager::isHostnameSafe($this->get('name')) && $this->getMACAddress();
 	}
 	public function getActiveTaskCount() {
-		return $this->getClass('TaskManager')->count(array('stateID' => array(1, 2, 3), 'hostID' => $this->get('id')));
+		return $this->getClass('TaskManager')->count(array('stateID' => array(1,2,3), 'hostID' => $this->get('id')));
 	}
 	/* isi
 	 * Allow to check task states of host 
+	 *
+	 *	public function getActiveTask() {
+	 *		return $Task = $this->getClass('TaskManager')->find(array('hostID' => $this->get('id'),'stateID' => array(1,2,3,6)));
+	 *	}
 	 */
-	public function getActiveTask() {
-		return $Task = $this->getClass('TaskManager')->find(array('hostID' => $this->get('id'),'stateID' => array(1,2,3)));
-	}
 	public function isValidToImage() {
 		$Image = $this->getImage();
 		$OS = $this->getOS();

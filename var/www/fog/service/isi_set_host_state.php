@@ -21,7 +21,7 @@ try
         	throw new Exception('Host not found');
         }
         $Task = $Host->get('task');
-        if (!$Task->isValid()) throw new Exception(sprintf('%s: %s (%s)',_('No Active Task found for Host'), $Host->get('name'),$Host->get('mac')));
+        #if (!$Task->isValid()) throw new Exception(sprintf('%s: %s (%s)',_('No Active Task found for Host'), $Host->get('name'),$Host->get('mac')));
         
         if (!in_array($Task->get('typeID'),array(12,13)))
         {
@@ -47,6 +47,22 @@ try
         	$TaskLog->set('taskID',$Task->get('id'))->set('taskStateID',$Task->get('stateID'))->set('createdTime',$Task->get('createdTime'))->set('createdBy',$Task->get('createdBy'))->save();
         	$EventManager->notify('HOST_IMAGE_COMPLETE', array(HostName=>$Host->get('name')));
         }
+        
+        if($STATE=='6')
+        {
+        	// Log it
+        	$ImagingLogs = $FOGCore->getClass('ImagingLogManager')->find(array('hostID' => $Host->get('id')));
+        	foreach($ImagingLogs AS $ImagingLog) $id[] = $ImagingLog->get('id');
+        	// Update Last deploy
+        	$Host->set('deployed',date('Y-m-d H:i:s'))->save();
+        	$il = new ImagingLog(max($id));
+        	$il->set('finish',date('Y-m-d H:i:s'))->save();
+        	// Task Logging.
+        	$TaskLog = new TaskLog($Task);
+        	$TaskLog->set('taskID',$Task->get('id'))->set('taskStateID',$Task->get('stateID'))->set('createdTime',$Task->get('createdTime'))->set('createdBy',$Task->get('createdBy'))->save();
+        	$EventManager->notify('HOST_IMAGE_COMPLETE', array(HostName=>$Host->get('name')));
+        }
+        
         $output['stdout'] = 'True';
         $output['code'] =  0;
 }
