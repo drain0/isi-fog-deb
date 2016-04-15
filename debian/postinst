@@ -6,15 +6,17 @@ set -e
 echo "POST-INSTALL STEPS"
 
 RESULT=$(/usr/bin/mysql -se 'USE fog; SELECT ttName FROM taskTypes WHERE ttName LIKE "Custom Kernel";')
-echo "RESULT=$RESULT"
+echo "Custom_Kernel_present=$RESULT"
 if [ -z "${RESULT}" ]; then
-        /usr/bin/mysql -e 'USE fog; INSERT INTO taskTypes(ttID,ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES(25,"Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog","1","both");'
+	echo "Create Custom_kernel value"
+    /usr/bin/mysql -e 'USE fog; INSERT INTO taskTypes(ttID,ttName,ttDescription,ttIcon,ttKernel,ttKernelArgs,ttType,ttIsAdvanced,ttIsAccess) VALUES(25,"Custom Kernel","Use a custom kernel defined in host Kernel section via http", "senddebug.png","","","fog","1","both");'
 fi
 
-RESULT2=$(/usr/bin/mysql -se 'USE fog; SELECT tsName FROM taskStates WHERE tsName LIKE "Hold";')
-echo "RESULT2=$RESULT2"
-if [ -z "${RESULT2}" ]; then
-        /usr/bin/mysql -e 'USE fog; INSERT INTO taskStates(tsID,tsName,tsDescription,tsOrder) VALUES(6,"Hold","Reboot Wait for call and completion from outside service.",6);'
+RESULT2=$(/usr/bin/mysql -se 'USE fog; SELECT settingValue FROM globalSettings WHERE settingKey LIKE "FOG_HOST_LOOKUP";')
+echo "FOG_HOST_LOOKUP=$RESULT2"
+if [ -n "${RESULT2}" ]; then
+	echo 'set FOG_HOST_LOOKUP null'
+    /usr/bin/mysql -e 'USE fog; UPDATE globalSettings SET settingValue="" WHERE settingKey LIKE "FOG_HOST_LOOKUP";'
 fi
 
 chmod 700 /var/www/fog/service/isi_vm_reboot.py

@@ -31,5 +31,5 @@
 	
 	"isi_destroy_host":{"url":"{url}/fog/service/isi_destroy_host.php?hostname={hostname}"},
 
-    	"isi_ipmi_reset.php":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
+    	"isi_ipmi_reset":{"url":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}"}
 }
