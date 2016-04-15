@@ -19,8 +19,8 @@ try
         {
         	throw new Exception("Host not found");
         }
-        $id =$Host->get('id');
-        $Host->destroy($id);
+        //$id =$Host->get('id');
+        $Host->destroy();
         $output['stdout'] = 'True';
         $output['code'] =  0;
 }
