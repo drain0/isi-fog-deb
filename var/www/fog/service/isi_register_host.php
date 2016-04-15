@@ -10,10 +10,24 @@ try
         $HostManager = new HostManager();
         $hostname    = $_REQUEST['hostname'];
         $mac         = $_REQUEST['mac'];
+        $macValid    = preg_match('/([a-fA-F0-9]{2}[:|\-]?){6}/', $mac);
+        $hostValid   = $HostManager->isSafeHostName($hostname);
+        
+        if (!$macValid == 1)
+        {
+        	throw new Exception('mac address is invalid');
+        }
+        
         if (!$hostname || !$mac)
         {
         	throw new Exception('error please define hostname example: {url}/fog/service/isi_register_host.php?hostname={hostname}&mac={mac}');
         }
+        
+        if (!$hostValid)
+        {
+        	throw new Exception('Host name is invalid');
+        }
+        
         // Get the host if it exists
         $Host = $HostManager->getHostByName($hostname);
         if(!$Host)
