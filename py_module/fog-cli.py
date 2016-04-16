@@ -5,7 +5,8 @@ Created on Apr 14, 2016
 '''
 import argparse
 import json
-from http import Restful
+from fog import Api
+
 
 def menu():
     parser = argparse.ArgumentParser(
@@ -28,8 +29,9 @@ def menu():
     parser.add_argument('-V',
                         action="store",
                         dest="variables",
-                        default='',
-                        help='add variables in the form of key1=value1 key2=value2 --note: space is the delimiter')
+                        default='{}',
+                        type=json.loads,
+                        help='add variables in the form of \'{"mac":"00:00:00:00:00:00\"}\' '),
     parser.add_argument('-d',
                         action="store_true",
                         dest="debug",
@@ -40,39 +42,20 @@ def menu():
                         version='%(prog)s 1.0')
     return parser.parse_args()
 
-def get_api(options,session):
-    ext = 'service/api.json'
-    output = session.send('GET',ext)
-    output = json.loads(output)
-    if options.debug or options.api:
-        print ''
-        for cmd, url in output.iteritems():
-            print "  %s\n -- %s\n" % (cmd,url)
-    return output
 
-def run(options,session,api):
-    vars = ''
-    if api.get(options.cmd):
-        variables = options.variables.split(' ')
-        for var in variables:
-            vars = "%s&%s" % (vars,var)
-        api_url = api.get(options.cmd).get('url').split('fog',1)[1].split('?',1)[0]
-        print api_url
-        ext = '%s?%s' % (api_url,vars)
-        output = session.send('GET',ext)
-        output = json.loads(output)
-        if options.debug:
-            print output
-        return output
+def run(options):
+    server = options.server
+    cmd = options.cmd
+    variables = options.variables
+    debug = options.debug
+    session = Api(server,debug=debug)
+    if options.api:
+        session.print_api()
     else:
-        print "[Error] cmd not found %s " % (options.cmd)
-        print "try [-a] to print api list"
-
+        print session.send(cmd,**variables)
+    
+    
 if __name__ == '__main__':
     options = menu()
-    if options.debug:
-        print options
-    session = Restful(options.server)
-    api = get_api(options, session)
-    print run(options, session, api)
+    run(options)
     
