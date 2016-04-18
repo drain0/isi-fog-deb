@@ -20,7 +20,7 @@ def menu():
     argparser.add_option(
         '-f', '--server',
         default="es-fog-dev.west.isilon.com",
-        help="build name"),
+        help="Your fog server instance ip or dns name"),
     
     (opts, _) = argparser.parse_args()
     return opts

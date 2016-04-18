@@ -8,7 +8,7 @@ import sys
 from http import Restful
 
 class Api(object):
-    ''' This class allows you to control fog imaging via restful commands
+    ''' This is a generic class for communication with fog server
     '''
     def __init__(self, url, debug=False):
         ''' Init fog object
@@ -38,7 +38,7 @@ class Api(object):
         print 'api list:'
         for cmd,args in self.api.iteritems():
             variables = ','.join(args.get('variables'))
-            print "  [cmd] %s [variables] %s" % (cmd,variables)
+            print "  [cmd] %s [VARIABLES] %s" % (cmd,variables)
 
     def send(self,cmd,**kwargs):
         ''' Generic http 'GET' with some error handling
