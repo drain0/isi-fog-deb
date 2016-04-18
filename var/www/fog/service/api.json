@@ -31,7 +31,7 @@
 	
 	"isi_get_host_state":{
 	"example":"{url}/fog/service/isi_get_host_kernel_state.php?hostname={hostname}",
-	"ext":"service/isi_get_host_kernel_state.php",
+	"ext":"service/isi_get_host_state.php",
 	"variables":["hostname"]
 	},
 	

@@ -10,7 +10,7 @@ from http import Restful
 class Api(object):
     ''' This class allows you to control fog imaging via restful commands
     '''
-    def __init__(self, url, debug=True):
+    def __init__(self, url, debug=False):
         ''' Init fog object
         @param url: base url of fog server example: http://es-fog-dev.west.isilon.com/fog
         @param debug: print out all info 
@@ -19,9 +19,10 @@ class Api(object):
         self.url = url
         self.session = Restful(self.url,debug=self.debug)
         self.api = self._get_api()
-    
+
     def _get_api(self):
         ''' Get the active api list
+        @return: dict api from {url}/fog/service/api.json
         '''
         ext = 'service/api.json'
         output = self.session.send('GET',ext)
@@ -30,14 +31,15 @@ class Api(object):
             sys.exit(output)          
         output = json.loads(output)
         return output
-    
+
     def print_api(self):
+        ''' Prints api list out pretty
+        '''
         print 'api list:'
         for cmd,args in self.api.iteritems():
             variables = ','.join(args.get('variables'))
             print "  [cmd] %s [variables] %s" % (cmd,variables)
-        
-    
+
     def send(self,cmd,**kwargs):
         ''' Generic http 'GET' with some error handling
         * forms all the url extention pionts using {url}/fog/service/api.json
@@ -74,8 +76,4 @@ if __name__ == '__main__':
     session = Api(url)
     output = session.send('isi_get_hosts',test='hello',test2='hello2')
     print output
-'''
-
-    
-    
-        
+'''    

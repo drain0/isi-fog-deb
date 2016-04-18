@@ -4,6 +4,7 @@ Created on Apr 14, 2016
 @author: iitow
 '''
 import argparse
+import json
 import sys
 import time
 from py_module.terminal import shell
@@ -41,7 +42,7 @@ def one(nodes):
         hostname = "node_%02d" % (node)
         mac = "00:00:00:00:00:%02d" % (node)
         print "%s : %s" % (hostname, mac)
-        shell('python py_module/fog-cli.py -c isi_register_host -V "hostname=%s mac=%s"' % (hostname,mac))
+        shell('python py_module/fog-cli.py -c isi_register_host -V \'{"hostname":"%s","mac":"%s"}\'' % (hostname,mac))
 
 def two(nodes):
     for node in range(0,nodes):
@@ -52,17 +53,27 @@ def two(nodes):
 
 def three():    
     # Register host
-    shell('python py_module/fog-cli.py -c isi_register_host -V "hostname=%s mac=%s"' % (hostname,mac))
+    shell('python py_module/fog-cli.py -c isi_register_host -V \'{"hostname":"%s","mac":"%s"}\'' % (hostname,mac))
     # Configure Host
-    shell('python py_module/fog-cli.py -c isi_set_host_kernel -V "hostname=%s kernel_path=%s"' % (hostname,kernel))
-    shell('python py_module/fog-cli.py -c isi_set_host_kernel_args -V "hostname=%s kernel_args=%s"' % (hostname,kernel_args))
-    shell('python py_module/fog-cli.py -c isi_set_host_description -V "hostname=%s description=%s"' % (hostname,description))
+    shell('python py_module/fog-cli.py -c isi_set_host_kernel -V \'{"hostname":"%s","kernel_path":"%s"}\'' % (hostname,kernel))
+    shell('python py_module/fog-cli.py -c isi_set_host_kernel_args -V \'{"hostname":"%s","kernel_args":"%s"}\'' % (hostname,kernel_args))
+    shell('python py_module/fog-cli.py -c isi_set_host_description -V \'{"hostname":"%s","description":"%s"}\'' % (hostname,description))
 
 def four():
+    
     #Add node to queue
-    shell('python py_module/fog-cli.py -c isi_queue_host -V "hostname=%s taskTypeID=%s"' % (hostname,25))
+    shell('python py_module/fog-cli.py -c isi_queue_host -V \'{"hostname":"%s","taskTypeID":"%s"}\'' % (hostname,25))
     #Reboot the node
-    shell('python py_module/fog-cli.py -c isi_ipmi_reset -V "user=%s password=%s ip=%s"' % (user,password,ipmi_ip))
+    shell('python py_module/fog-cli.py -c isi_ipmi_reset -V \'{"user":"%s","password":"%s","ip":"%s"}\'' % (user,password,ipmi_ip))
+    # make sure the node has started imaging check state
+    output = shell('python py_module/fog-cli.py -c isi_get_host_state -V \'{"hostname":"%s"}\'' % 
+                   (hostname),verbose=False).get('stdout')
+    output = _sanitize(output)
+    output = json.loads(output,encoding='utf-8')    
+    state = output.get('stdout').get('state')
+    if not state == 1:
+        print "Error node is not queued state %s" % state
+        sys.exit(1)
     _wizard_check()
 
 def _wizard_check():
@@ -70,23 +81,16 @@ def _wizard_check():
     timeout = 300
     print "Waiting for node to img sleep 7.5 minutes"
     time.sleep(450)
-    
-    # make sure the node has started imaging
-    output = shell('python py_module/fog-cli.py -c isi_get_host_state -V "hostname=%s"' % (hostname)).get('stdout')
-    output = json.loads(output)
-    state = output.get('stdout').get('state')
-    if state is not 1:
-        print "Error node is not queued"
-        sys.exit(1)
-    
     # monitor for node being finished 
     for ping in range(0,timeout):
         print " ping @ %s" % (str(ping))
         try:
-            output = shell('python py_module/fog-cli.py -c isi_get_host_state -V "hostname=%s"' % (hostname),strict=False).get('stdout')
-            output = json.loads(output)
+            output = shell('python py_module/fog-cli.py -c isi_get_host_state -V \'{"hostname":"%s"}\'' % (hostname),strict=False).get('stdout')
+            output = _sanitize(output)
+            output = json.loads(output,encoding='utf-8') 
             state = output.get('stdout').get('state')
-        except:
+        except Exception as e:
+            print str(e)
             state=1
         print "state @ %s" % (state)
         if state==0:
@@ -97,15 +101,16 @@ def _wizard_check():
             sys.exit(1)
         cnt+=1
         time.sleep(1)
-    
     # check serial of node for the wizard
-    serial = serial.split(':')
+    _serial = serial.split(':')
     cnt=0
     for ping in range(0,timeout):
         print " ping @ %s" % (str(ping))
-        output = shell('python py_module/fog-cli.py -c isi_telnet_cmd -V "host=%s port=%s"' % (serial[0],serial[1])).get('stdout')
+        output = shell('python py_module/fog-cli.py -c isi_telnet_cmd -V \'{"host":"%s","port":"%s"}\'' % (_serial[0],_serial[1])).get('stdout')
         if 'wizard' in output.lower():
+            print "##########################"
             print "WIZARD FOUND"
+            print "##########################"
             break
         
         if cnt >= timeout-1:
@@ -113,6 +118,10 @@ def _wizard_check():
             sys.exit(1)
         cnt+=1
         time.sleep(1)
+
+def _sanitize(str):
+    str = str.replace(", u'",", '").replace("{u'","{'").replace(": u'",": '").replace("'",'"')
+    return str.strip()
         
 if __name__ == '__main__':
     # ipmi settings
