@@ -12,7 +12,7 @@ try
 	$cmdline = $_REQUEST['cmdline'];
 	if (!$host || !$port)
 	{
-		throw new Exception('error please define hostname example: {url}/fog/service/isi_telnet_cmd.php?host={host}&port={port}&cmdline={cmd}');
+		throw new Exception('error please define variables example: {url}/fog/service/isi_telnet_cmd.php?host={host}&port={port}&cmdline={cmd}');
 	}
 	if (!$cmdline)
 	{

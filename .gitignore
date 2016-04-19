@@ -2,3 +2,5 @@ debian/files
 debian/isi-fog.debhelper.log
 debian/isi-fog.substvars
 debian/isi-fog
+
+*.pyc

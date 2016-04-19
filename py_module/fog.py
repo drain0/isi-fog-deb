@@ -38,7 +38,7 @@ class Api(object):
         print 'api list:'
         for cmd,args in self.api.iteritems():
             variables = ','.join(args.get('variables'))
-            print "  [cmd] %s [VARIABLES] %s" % (cmd,variables)
+            print "  [cmd] %s [Variables] %s" % (cmd.rjust(25),variables)
 
     def send(self,cmd,**kwargs):
         ''' Generic http 'GET' with some error handling

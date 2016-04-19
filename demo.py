@@ -134,6 +134,7 @@ if __name__ == '__main__':
     mac='00:25:90:62:13:24'
     serial='cs628.west.isilon.com:8030'
     build='http://buildbiox.west.isilon.com/snapshots/b.8.0.0.037/RELEASES/latest/OneFS_v8.0.0.1_Install.tar.gz'
+    #build="http://buildbiox.west.isilon.com/releases/release-7.1.1.9/OneFS_v7.1.1.9_Install.tar.gz"
     kernel='http://buildbiox.west.isilon.com/snapshots/b.8.0.0.037/RELEASES/latest/OneFS_v8.0.0.1_reimg.img.gz'
     kernel_args='force=True,pxe=True,state=4,build=%s' % (build)
     description='ipmi_ip=%s\nserial=%s' % (ipmi_ip,serial)
