@@ -105,7 +105,7 @@ class Onefs(Api):
         '''
         pass
 
-''' Example.'''
+''' Example.
 if __name__ == '__main__':
     url = 'http://es-fog-dev.west.isilon.com/fog'
     hostname = 'test1'
@@ -118,6 +118,7 @@ if __name__ == '__main__':
     #session.destroy_host(hostname)
     #session.queue_host(hostname)
     #print session.reboot_host(ip='10.7.169.145',user='ADMIN',password='ADMIN')
+'''
 
 
 
