@@ -71,12 +71,6 @@
 	"variables":["hostname","taskTypeID"]
 	},
 	
-	"isi_vm_reboot":{
-	"example":"{url}/fog/service/isi_vm_reboot.php?hostname={hostname}",
-	"ext":"service/isi_vm_reboot.php",
-	"variables":["hostname"]
-	},
-	
 	"isi_register_host":{
 	"example":"{url}/fog/service/isi_register_host.php?hostname={hostname}&mac={mac}",
 	"ext":"service/isi_register_host.php",
@@ -93,5 +87,17 @@
     	"example":"{url}/fog/service/isi_ipmi_reset.php?ip={ip}&user={user}&password={password}",
     	"ext":"service/isi_ipmi_reset.php",
     	"variables":["ip","user","password"]
-    	}
+    	},
+
+        "isi_vm_reboot":{
+        "example":"{url}/fog/service/isi_vm_reboot.php?hostname={hostname}&user={user}&password={password}",
+        "ext":"service/isi_vm_reboot.php",
+        "variables":["hostname","user","password"]
+        },
+
+        "isi_pdu_reboot":{
+        "example":"{url}/fog/service/isi_pdu_reboot.php?ip={ip}&user={user}&password={password}&outlet={outlet}",
+        "ext":"service/isi_pdu_reboot.php",
+        "variables":["ip","user","password","outlet"]
+        }
 }

@@ -7,15 +7,15 @@ $output['stderr'] = 'None';
 $output['stdin'] = 'None';
 try
 {
-	$host    = $_REQUEST['host'];
+	$ip    = $_REQUEST['ip'];
 	$user        = $_REQUEST['user'];
 	$password    = $_REQUEST['password'];
 	$outlet      = $_REQUEST['outlet'];
-	if (!$host || !$user || !$password || !$output)
+	if (!$ip || !$user || !$password || !$output)
 	{
 		throw new Exception('error please define example: {url}/fog/service/isi_pdu_reboot.php?host={name}&user={user}&password={password}&outlet={outlet}');
 	}
-	$command = escapeshellcmd('/usr/bin/python /var/www/fog/service/isi_pdu_reboot.py -i '.$host.' -u '.$user.' -p '.$password.' -o '.$outlet);
+	$command = escapeshellcmd('/usr/bin/python /var/www/fog/service/isi_pdu_reboot.py -i '.$ip.' -u '.$user.' -p '.$password.' -o '.$outlet);
 	$output['stdin'] = $command;
         $output_str = shell_exec($command);
         if($output_str!="True\n")
