@@ -13,7 +13,7 @@
 	
 	"isi_set_host_description":{
 	"example":"{url}/fog/service/isi_set_host_description.php?hostname={name}&description={description}",
-	"ext":"service/isi_set_host_kernel_args.php",
+	"ext":"service/isi_set_host_description.php",
 	"variables":["hostname","description"]
 	},
 	

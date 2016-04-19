@@ -9,7 +9,10 @@ def menu():
                                         prog='isi_vm_reboot',
                                         version='1.0',
                                         usage= "usage: %prog  ")
-    p.add_option('-n' ,'--name' ,action ='store', type="string", dest="name", default="" ,help="provide the hostname")
+    p.add_option('-n' ,'--hostname' ,action ='store', type="string", dest="name", default="" ,help="provide the hostname")
+    p.add_option('-v' ,'--vmhost' ,action ='store', type="string", dest="vmhost", default=["vcenter02.prod.sea1.west.isilon.com","eng-mgt-vcenter.west.isilon.com"] ,help="provide the hostname")
+    p.add_option('-u' ,'--user' ,action ='store', type="string", dest="user", default="SVC-SEA.EngJenkinsSt" ,help="vm host user")
+    p.add_option('-p' ,'--password' ,action ='store', type="string", dest="password", default="" ,help="vm host password")
     (options,args) = p.parse_args()
     options = options.__dict__
     return options
@@ -24,9 +27,7 @@ def reboot(service_instance,name):
     vm=None
     for v in vmList:
         if v.name == name:
-            vm=v  
-    
-    print vm
+            vm=v
     if vm:
         summary = vm.summary
         TASK = vm.ResetVM_Task()
@@ -46,17 +47,12 @@ def connection(host,user,password):
         print str(e)
     atexit.register(connect.Disconnect, service_instance)
 if __name__ == "__main__":
-    config = read_config()
-    host_1  = config.get('host_1')
-    host_2  = config.get('host_2')
-    user    = config.get('user')
-    password= config.get('password')
     options = menu()
+    user    = options.get('user')
+    password= options.get('password')
     name    = options.get('name')
-    service_instance = connection(host_1,user,password)
-    if not reboot(service_instance,name):
-        service_instance = connection(host_2,user,password)
-        if not reboot(service_instance,name):
-            print "false"
-        else:
-            print "true"
+    for host in options.get('vmhost'):
+        service_instance = connection(host,user,password)
+        if reboot(service_instance,name):
+            print 'True'
+            break      

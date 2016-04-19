@@ -56,7 +56,7 @@ class TelnetCmd(object):
                 cmd = "%s\n" % cmd
                 self.session.write(cmd)
                 output = self.session.read_until(match, timeout)
-                print output
+                #print output
                 return output
                 self.session.close()
             except Exception as e:

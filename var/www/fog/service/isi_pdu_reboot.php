@@ -7,14 +7,15 @@ $output['stderr'] = 'None';
 $output['stdin'] = 'None';
 try
 {
-	$hostname    = $_REQUEST['hostname'];
+	$host    = $_REQUEST['host'];
 	$user        = $_REQUEST['user'];
 	$password    = $_REQUEST['password'];
-	if (!$hostname || !$user || !$password)
+	$outlet      = $_REQUEST['outlet'];
+	if (!$host || !$user || !$password || !$output)
 	{
-		throw new Exception('error please define hostname example: {url}/fog/service/isi_vm_reboot.php?hostname={name}&user={user}&password={password}');
+		throw new Exception('error please define example: {url}/fog/service/isi_pdu_reboot.php?host={name}&user={user}&password={password}&outlet={outlet}');
 	}
-	$command = escapeshellcmd('/usr/bin/python /var/www/fog/service/isi_vm_reboot.py -n '.$hostname.' -u '.$user.' -p '.$password);
+	$command = escapeshellcmd('/usr/bin/python /var/www/fog/service/isi_pdu_reboot.py -i '.$host.' -u '.$user.' -p '.$password.' -o '.$outlet);
 	$output['stdin'] = $command;
         $output_str = shell_exec($command);
         if($output_str!="True\n")
@@ -27,7 +28,7 @@ try
         }
     if (!output)
     {
-    	throw new Exception('error /var/www/fog/service/isi_vm_reboot.py');
+    	throw new Exception('error /var/www/fog/service/isi_pdu_reboot.py');
     }
 }
 catch (Exception $e)
