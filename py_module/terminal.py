@@ -1,7 +1,7 @@
 '''
 Created on Nov 18, 2015
 
-@author: iitow
+:author: iitow
 '''
 import atexit
 import os
@@ -17,9 +17,11 @@ this_path = os.path.dirname(os.path.realpath(__file__))
 
 
 def waitfor(fd):
-    """ poll the child for input
-    @param fd: forked process
-    """
+    ''' 
+    poll the child for input
+    
+    :param fd: forked process
+    '''
     poll = select.poll()
     poll.register(fd, select.POLLIN)
     poll.poll()
@@ -27,10 +29,12 @@ def waitfor(fd):
 
 
 def event(fd, searches):
-    """ find all output and inspect it for searches dict key & value
-    @param fd: forked process
-    @param searches: dictionary key value pair
-    """
+    ''' 
+    find all output and inspect it for searches dict key & value
+    
+    :param fd: forked process
+    :param searches: dictionary key value pair
+    '''
     while True:
         output = waitfor(fd)
         if output:
@@ -47,14 +51,15 @@ def event(fd, searches):
 
 
 def set_rsa(host, rsa_pub, user, password):
-    """ logs into system via ssh
-    and appends to authorized_keys using username password
-    @param     host: name over the server
-    @param  rsa_pub: absolute path to your id_rsa.pub
-    @param     user: host login creds
-    @param password: host login creds
-    @param home_dir: home directory for user
-    """
+    ''' 
+    logs into system via ssh and appends to authorized_keys using username password
+    
+    :param     host: name over the server
+    :param  rsa_pub: absolute path to your id_rsa.pub
+    :param     user: host login creds
+    :param password: host login creds
+    :param home_dir: home directory for user
+    '''
     output = None
     with open(rsa_pub, 'r') as file:
         output = file.read()
@@ -81,9 +86,11 @@ def set_rsa(host, rsa_pub, user, password):
 
 
 def create_rsa_public(rsa_private):
-    """ generate a public key from the private key
-    @param rsa_private: path to private key
-    """
+    ''' 
+    generate a public key from the private key
+    
+    :param rsa_private: path to private key
+    '''
     rsa_public = "%s.pub" % rsa_private
     if not os.path.exists(rsa_public):
         cmd = 'ssh-keygen -y -f %s > %s' % (rsa_private, rsa_public)
@@ -101,10 +108,12 @@ def ssh(server,
         verbose=True,
         show_cmd=True,
         shell_set=True):
-    """ Run a single ssh command on a remote server
-    @param server: username@servername
-    @param cmd: single command you wish to run
-    """
+    '''
+    Run a single ssh command on a remote server
+    s
+    :param server: username@servername
+    :param cmd: single command you wish to run
+    '''
     if add_rsa:
         public = create_rsa_public(rsa_private)
         set_rsa(server, public, user, password)
@@ -135,17 +144,17 @@ def rsync(server,
           rsa_private='/root/.ssh/id_rsa.default',
           user='root',
           verbose=False):
-    """ Performs an rsync of files; requires ssh keys setup.
-    @param   server: username@server
-    @param      src: full path of src directory/file
-    @param     dest: full path to dest directory
-    @param   option: [pull] get file from a remote,
-    [push] put a file from your server into a remote
-    @param   remote: [True] assumes we are working with
-    a remote system, [False] assumes we are copying files locally
-    @param excludes: exclude directory, or file from array
-    @note: --delete will delete files on dest if it does not match src
-    """
+    ''' 
+    Performs an rsync of files; requires ssh keys setup.
+    
+    :param   server: username@server
+    :param      src: full path of src directory/file
+    :param     dest: full path to dest directory
+    :param   option: [pull] get file from a remote,[push] put a file from your server into a remote
+    :param   remote: [True] assumes we are working with a remote system, [False] assumes we are copying files locally
+    :param excludes: exclude directory, or file from array
+    :note: --delete will delete files on dest if it does not match src
+    '''
     excludes_str = ''
     if excludes:
         for exclude in excludes:
@@ -206,12 +215,14 @@ def shell(cmd,
           shell=False,
           buffer_size=1048576,
           show_cmd=True):
-    """Run Shell commands  [Non Blocking, no Buffer, print live, log it]
-    @param cmd: String command
-    @param verbose:bool
-    @param strict:bool will exit based on code if enabled
-    @return:  {command, stdout, code} as dict
-    """
+    '''
+    Run Shell commands  [Non Blocking, no Buffer, print live, log it]
+    
+    :param cmd: String command
+    :param verbose:bool
+    :param strict:bool will exit based on code if enabled
+    :return:  {command, stdout, code} as dict
+    '''
     path = os.path.dirname(os.path.realpath(__file__))
     stamp = str(int(time.time()))
     temp_path = path+os.sep+".tmp_shell_"+stamp+".log"
@@ -248,8 +259,8 @@ def shell(cmd,
 
 
 def _exit_clean():
-    """ cleans .tmp_shell files before exit
-    """
+    ''' cleans .tmp_shell files before exit
+    '''
     for file in os.listdir(this_path):
         if ".tmp_shell_" in file:
             file_remove = this_path+os.sep+file

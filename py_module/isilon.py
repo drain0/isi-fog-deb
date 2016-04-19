@@ -1,34 +1,39 @@
 '''
 Created on Apr 18, 2016
 
-@author: iitow
+:author: iitow
 '''
 from fog import Api
 import sys
 import time
 
 class Onefs(Api):
-    ''' This class is specific to Isilon bare-metal provisioning for onefs using fog
-    @note: see fog.py for additional info
-    @note: https://fogproject.org/
-    @note: https://github.west.isilon.com/eng-tools/isi-fog-deb
+    ''' 
+    This class is specific to Isilon bare-metal provisioning for onefs using fog
+    
+    :note: see fog.py for additional info
+    :note: https://fogproject.org/
+    :note: https://github.west.isilon.com/eng-tools/isi-fog-deb
     '''
     def __init__(self, url, debug=True):
-        ''' Init BareMetal object
-        @param url: base url of fog server example: http://es-fog-dev.west.isilon.com/fog
-        @param debug: print out all info 
+        '''Init BareMetal object
+        
+        :param url: base url of fog server example: http://es-fog-dev.west.isilon.com/fog
+        :param debug: print out all info 
         '''
         Api.__init__(self,url,debug=debug)
 
     def register_host(self,hostname,mac,kernel_path,kernel_args,**description):
-        ''' Creates a fog host and updates info
-        @param hostname: string, hostname
-        @param mac: string, mac address
-        @param kernel_path: string, http path to kernel on buildbiox
-        @param kernel_args: string, kernel arguments to be passed to fog host
-        @param description: add key value pairs to description in the form of key=value/n 
-        @return: boolean, Success
-        @note: Here to check if updates occured @ http://<UrFogServer>/fog/management/?node=host
+        ''' 
+        Creates a fog host and updates info
+        
+        :param hostname: string, hostname
+        :param mac: string, mac address
+        :param kernel_path: string, http path to kernel on buildbiox
+        :param kernel_args: string, kernel arguments to be passed to fog host
+        :param description: add key value pairs to description in the form of key=value/n 
+        :return: boolean, Success
+        :note: Here to check if updates occured @ http://<UrFogServer>/fog/management/?node=host
         '''
         output = self.send('isi_register_host',hostname=hostname,mac=mac)
         if not output.get('code') == 0:
@@ -53,8 +58,9 @@ class Onefs(Api):
 
     def destroy_host(self,hostname):
         ''' Destroy a host
-        @param hostname: string, fog host
-        @return: boolean, Success
+        
+        :param hostname: string, fog host
+        :return: boolean, Success
         '''
         output = self.send('isi_destroy_host',hostname=hostname)
         if not output.get('code') == 0:
@@ -64,9 +70,10 @@ class Onefs(Api):
     
     def reboot_host(self,**Variables):
         ''' Reboot a node
-        @param host: String, Service you wish to use to reboot hostname/ip
-        @param **Variables: see 'isi_pdu_reboot','isi_vm_reboot','isi_ipmi_reset', @ http://{url}/fog/service/api.json
-        @note: example usage:
+        
+        :param host: String, Service you wish to use to reboot hostname/ip
+        :param **Variables: see 'isi_pdu_reboot','isi_vm_reboot','isi_ipmi_reset', : http://{url}/fog/service/api.json
+        .. :note: example usage:
         ipmi - reboot_host(ip='192.168.1.1',user='ADMIN',password='ADMIN')
         pdu  - reboot_host(ip='192.168.1.1',user='ADMIN',password='ADMIN',outlet='.A16')
         vm   - reboot_host(hostname='SOMEVMNAME',user='ADMIN',password='ADMIN')
@@ -95,10 +102,11 @@ class Onefs(Api):
         return True
 
     def queue_host(self,hostname,taskTypeID=25):
-        ''' Add host to the queue to be re-imged
-        @param hostname: string, name of system
-        @param taskTypeID: 
-        @return: boolean Success 
+        '''Add host to the queue to be re-imged
+        
+        :param hostname: string, name of system
+        :param taskTypeID: 
+        :return: boolean Success 
         '''
         output = self.send('isi_queue_host',hostname=hostname,taskTypeID=taskTypeID)
         if not output.get('code') == 0:
@@ -107,10 +115,11 @@ class Onefs(Api):
         return True
     
     def dequeue_host(self,mac,state='4'):
-        ''' Add host to the queue to be re-imged
-        @param mac: string, host mac
-        @param state: string, 1-5
-        @return: boolean Success 
+        '''Add host to the queue to be re-imged
+        
+        :param mac: string, host mac
+        :param state: string, 1-5
+        :return: boolean Success 
         '''
         output = self.send('isi_set_host_state',mac=mac,state=state)
         if not output.get('code') == 0:
@@ -119,8 +128,9 @@ class Onefs(Api):
         return True
     
     def telnet_search(self,**Variables):
-        """ search telnet for specific values
-        @param **variables: see 'isi_telnet_cmd' @ http://{url}/fog/service/api.json
+        """search telnet for specific values
+        
+        :param **variables: see 'isi_telnet_cmd' @ http://{url}/fog/service/api.json
         """
         print Variables
         for t in range(0,Variables.get('timeout')):
@@ -137,10 +147,11 @@ class Onefs(Api):
         return False
     
     def img_node(self,hostname,**Variables):
-        ''' reimg a Onefs node
-        @param hostname: name of Onefs system
-        @param **Variables: see 'isi_telnet_cmd','isi_queue_host', @ http://{url}/fog/service/api.json
-        @return: boolean, Success
+        '''reimg a Onefs node
+        
+        :param hostname: name of Onefs system
+        :param **Variables: see 'isi_telnet_cmd','isi_queue_host', @ http://{url}/fog/service/api.json
+        :return: boolean, Success
         '''
         if Variables.has_key('timeout'):
             timeout = Variables.get('timeout')

@@ -1,7 +1,7 @@
 '''
 Created on Jun 2, 2015
 
-@author: iitow
+:author: iitow
 '''
 import os
 import requests
@@ -13,10 +13,11 @@ from requests import Request, Session
 
 class Restful(object):
     def __init__(self,base_url,auth_file=None,debug=False):
-        """Generic class to handle All types of Restful requests and basic authentication
-        @param base_url: fully qualified path to api path example:https://github.west.isilon.com/api/v3
-        @param auth_file: a yaml file containing user: <username> password: <password>
-        """
+        '''Generic class to handle All types of Restful requests and basic authentication
+        
+        :param base_url: fully qualified path to api path example:https://github.west.isilon.com/api/v3
+        :param auth_file: a yaml file containing user: <username> password: <password>
+        '''
         self.debug    = debug
         self.user     = None
         self.password = None
@@ -35,14 +36,15 @@ class Restful(object):
         self.base_url = base_url
         self.session = Session()
     def send(self,rest_action,url_ext,data=None,strict=False,Content_Type='application/json',verify=False):
-        """Generic call to handle all types of restful requests
-        @param  rest_action: Possible option, 'GET','PUT','POST','PATCH'
-        @param      url_ext: added to base url example https://github.west.isilon.com/<url_ext>
-        @param       strict: False, will permit errors as warning & return code, True will exit with code
-        @param Content_Type: How info is formed, example application/xml  
-        @param       verify: Check for Certificates 
-        @return: String of content, or error exit code
-        """
+        '''Generic call to handle all types of restful requests
+        
+        :param rest_action: Possible option, 'GET','PUT','POST','PATCH'
+        :param url_ext: added to base url example https://github.west.isilon.com/<url_ext>
+        :param strict: False, will permit errors as warning & return code, True will exit with code
+        :param Content_Type: How info is formed, example application/xml  
+        :param verify: Check for Certificates 
+        :return: String of content, or error exit code
+        '''
         auth = None
         if self.set_auth:### set auth parameters if defined
             auth = HTTPBasicAuth(self.user,self.password)
@@ -84,7 +86,7 @@ class Restful(object):
         
 if __name__ == '__main__':
     pass
-    """ Basic usage example
+    ''' Basic usage example
     url_ext = 'user'
     branch   = 'BR_IITOW_SVN_BRANCH'
     revision = '206'
@@ -92,6 +94,6 @@ if __name__ == '__main__':
     url_ext = "user"
     com = Restful(server,auth_file='auth.yaml')
     print com.send('GET', url_ext)
-    """
+    '''
     
     

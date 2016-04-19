@@ -1,7 +1,7 @@
 '''
 Created on Apr 14, 2016
 
-@author: iitow
+:author: iitow
 '''
 import argparse
 import json
