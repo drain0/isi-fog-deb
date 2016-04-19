@@ -55,32 +55,31 @@ class Onefs(Api):
             return False
         return True
     
-    def reboot_host(self,host,type,**args):
+    def reboot_host(self,**args):
         ''' Reboot a node
         @param host: String, Service you wish to use to reboot hostname/ip
         @param type: pdu,ipmi,vm 
         @param **args: additional args to accomplish tasks
+        @note: example usage:
+        ipmi - reboot_host(ip='192.168.1.1',user='ADMIN',password='ADMIN')
+        pdu  - reboot_host(ip='192.168.1.1',user='ADMIN',password='ADMIN',outlet='.A16')
+        vm   - reboot_host(hostname='SOMEVMNAME',user='ADMIN',password='ADMIN')
         '''
-        if type.lower()=='pdu':
-            print "[Error] PDU reset not implemented"
-            return False
-        elif type.lower()=='vm': 
-            if not args.get('user') or not args.get('password'):
-                print "[Error] ipmi needs ip,user,password values ", args
-            else:
-                output = self.send('isi_vm_reboot',hostname=host,user=args.get('user'),password=args.get('password'))
-                if not output.get('code') == 0:
-                    print '[Error] %s' % output.get('stderr')
-                    return False
-        elif type.lower()=='ipmi': 
-            if not args.get('user') or not args.get('password'):
-                print "[Error] ipmi needs user,password values ", args
+        if args.has_key('ip') and args.has_key('outlet'):
+            output = self.send('isi_pdu_reboot',ip=args.get(ip),user=args.get('user'),password=args.get('password'),outlet=args.get('outlet'))
+            if not output.get('code') == 0:
+                print '[Error] %s' % output.get('stderr')
                 return False
-            else:
-                output = self.send('isi_ipmi_reset',ip=host,user=args.get('user'),password=args.get('password'))
-                if not output.get('code') == 0:
-                    print '[Error] %s' % output.get('stderr')
-                    return False
+        elif args.has_key('hostname'): 
+            output = self.send('isi_vm_reboot',hostname=hostname,ip=ip,user=args.get('user'),password=args.get('password'))
+            if not output.get('code') == 0:
+                print '[Error] %s' % output.get('stderr')
+                return False
+        elif args.has_key('ip'): 
+            output = self.send('isi_ipmi_reset',ip=args.get('ip'),user=args.get('user'),password=args.get('password'))
+            if not output.get('code') == 0:
+                print '[Error] %s' % output.get('stderr')
+                return False
         else:
             print "[Error] type not found %s" % (type)
             return False
@@ -115,9 +114,10 @@ if __name__ == '__main__':
     kernel_args = 'force=True,pxe=True,state=4,build=http://buildbiox.west.isilon.com/snapshots/b.8.0.0.037/RELEASES/latest/OneFS_v8.0.0.1_Install.tar.gz'
     
     session = Onefs(url)
-    session.register_host(hostname,mac,kernel_path,kernel_args,hello='world',test='1')
+    #session.register_host(hostname,mac,kernel_path,kernel_args,hello='world',test='1')
     #session.destroy_host(hostname)
     #session.queue_host(hostname)
+    #print session.reboot_host(ip='10.7.169.145',user='ADMIN',password='ADMIN')
 
 
 

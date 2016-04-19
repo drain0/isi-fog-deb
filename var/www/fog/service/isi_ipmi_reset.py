@@ -24,10 +24,13 @@ def reset(options):
     password = options.get('password')
     cmd = 'ipmitool -I lanplus -H %s -U %s -P %s power reset' % (ip,user,password)
     session = shell(cmd)
-    print session.get('stdout')
     return session
     
 
 if __name__ == '__main__':
     options = menu()
-    reset(options)
+    output = reset(options)
+    if 'Reset\n' in output.get('stdout'):
+        print "True"
+    else:
+        print "False"
