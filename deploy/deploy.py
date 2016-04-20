@@ -12,20 +12,31 @@ package_path = this_dir.rsplit('/',1)[0]
 artifact_path = this_dir.rsplit('/',2)[0]
 
 def menu():
-    argparser = optparse.OptionParser()
-    argparser.add_option(
-        '-b', '--build',
-        default="isi-fog_0.1_all.deb",
-        help="build name"),
-    argparser.add_option(
-        '-f', '--server',
-        default="es-fog-dev.west.isilon.com",
-        help="Your fog server instance ip or dns name"),
-    
-    (opts, _) = argparser.parse_args()
+    parser = optparse.OptionParser()
+    parser.add_option(
+                    '-b',
+                    '--build',
+                    default="isi-fog_0.1_all.deb",
+                    help="build name"),
+    parser.add_option(
+                    '-f', '--server',
+                    default="es-fog-dev.west.isilon.com",
+                    help="Your fog server instance ip or dns name"),
+    parser.add_option(
+                      '-d',
+                      '--docs',
+                      action ='store_false',
+                       dest="docs",
+                       default=True,
+                       help="Add sphinx docs to package")
+    (opts, _) = parser.parse_args()
     return opts
 
 def make_package(options):
+    if options.docs:
+        shell("cd %s/docs; sphinx-apidoc -f -o source/ ../isi_fog_py" % (package_path))
+        shell("cd %s/docs; make html" % (package_path))
+        shell("cd %s; tar -zcvf isi_fog_py.tar.gz ./isi_fog_py" % (package_path))
     shell("cd %s; dpkg-buildpackage -rfakeroot -Tclean" % (package_path))
     shell("cd %s; dpkg-buildpackage -b" % (package_path))
     server = options.server

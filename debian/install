@@ -1,1 +1,2 @@
 var /
+docs/build/html/* /var/www/fog/service/isi_fog_py

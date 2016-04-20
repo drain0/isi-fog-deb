@@ -2,6 +2,7 @@
 Created on Apr 15, 2016
 
 :author: iitow
+:note: https://github.west.isilon.com/eng-tools/isi-fog-deb
 '''
 import json
 import sys

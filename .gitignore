@@ -3,4 +3,6 @@ debian/isi-fog.debhelper.log
 debian/isi-fog.substvars
 debian/isi-fog
 docs/build
+deploy/source
 *.pyc
+*.gz
