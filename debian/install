@@ -1,2 +1,3 @@
 var /
 docs/build/html/* /var/www/fog/service/isi_fog_py
+isi_fog_py.tar.gz /var/www/fog/service/isi_fog_py
