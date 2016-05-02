@@ -17,8 +17,7 @@ this_path = os.path.dirname(os.path.realpath(__file__))
 
 
 def waitfor(fd):
-    ''' 
-    poll the child for input
+    '''poll the child for input
     
     :param fd: forked process
     '''
@@ -29,8 +28,7 @@ def waitfor(fd):
 
 
 def event(fd, searches):
-    ''' 
-    find all output and inspect it for searches dict key & value
+    '''find all output and inspect it for searches dict key & value
     
     :param fd: forked process
     :param searches: dictionary key value pair
@@ -51,8 +49,7 @@ def event(fd, searches):
 
 
 def set_rsa(host, rsa_pub, user, password):
-    ''' 
-    logs into system via ssh and appends to authorized_keys using username password
+    '''logs into system via ssh and appends to authorized_keys using username password
     
     :param     host: name over the server
     :param  rsa_pub: absolute path to your id_rsa.pub
@@ -86,8 +83,7 @@ def set_rsa(host, rsa_pub, user, password):
 
 
 def create_rsa_public(rsa_private):
-    ''' 
-    generate a public key from the private key
+    '''generate a public key from the private key
     
     :param rsa_private: path to private key
     '''
@@ -108,9 +104,8 @@ def ssh(server,
         verbose=True,
         show_cmd=True,
         shell_set=True):
-    '''
-    Run a single ssh command on a remote server
-    s
+    '''Run a single ssh command on a remote server
+    
     :param server: username@servername
     :param cmd: single command you wish to run
     '''
@@ -144,8 +139,7 @@ def rsync(server,
           rsa_private='/root/.ssh/id_rsa.default',
           user='root',
           verbose=False):
-    ''' 
-    Performs an rsync of files; requires ssh keys setup.
+    ''' Performs an rsync of files; requires ssh keys setup.
     
     :param   server: username@server
     :param      src: full path of src directory/file
@@ -211,16 +205,18 @@ def rsync(server,
 
 def shell(cmd,
           verbose=True,
-          strict=True,
-          shell=False,
+          strict=False,
+          shell=True,
           buffer_size=1048576,
           show_cmd=True):
-    '''
-    Run Shell commands  [Non Blocking, no Buffer, print live, log it]
+    
+    '''Run Shell commands  [Non Blocking, no Buffer, print live, log it]
     
     :param cmd: String command
     :param verbose:bool
     :param strict:bool will exit based on code if enabled
+    :param shell:bool, run as a shell client
+    :param buffer_size: int, for large amounts of output
     :return:  {command, stdout, code} as dict
     '''
     path = os.path.dirname(os.path.realpath(__file__))

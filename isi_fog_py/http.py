@@ -71,6 +71,14 @@ class Restful(object):
             return status
         
     def post_multipart(self,url_ext,data=None,files=None,strict=True):
+        '''Peform a multipart post
+        
+        :param url_ext: added to base url example https://github.west.isilon.com/<url_ext>
+        :param data: add data to the request
+        :param files; add files to request
+        :param strict: False, will permit errors as warning & return code, True will exit with code 
+        :return: String of content, or error exit code
+        '''
         full_url = "%s/%s" % (self.base_url,url_ext)
         response = requests.post(full_url,data=data,files=files)
         print ("\n [%s] %s \n %s") % ('post_multipart',full_url,response)
